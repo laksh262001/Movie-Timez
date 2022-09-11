@@ -16,10 +16,12 @@ app.get("/", function(req, res){
     });
   });
 
-app.get('/', function(req,res){
-    res.send("Hi Pushpak and Lakshmi");
-})
-
+app.get('/signin',function(req,res){
+    res.render('signin');
+});
+app.get('/register',function(req,res){
+    res.render('register');
+});
 
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
