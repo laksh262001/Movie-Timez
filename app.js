@@ -34,6 +34,26 @@ app.get('/register',function(req,res){
     res.render('register');
 });
 
+app.get('/newmovie', function(req, res){
+    res.render('newmovie');
+});
+
+app.post("/signin", function(req, res){
+    const emailadd = req.body.email;
+    const password = req.body.password;
+    User.findOne({email: emailadd}, function(err, foundUser){
+            if(err){
+                console.log(err);
+            }else{
+                if(foundUser){
+                    if(foundUser.password==password){
+                        res.redirect("/");
+                    }
+                }
+            }
+        });
+    });
+
 app.post("/register", function(req, res){
     const newUser = new User({
         name: req.body.name,
