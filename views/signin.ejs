@@ -1,14 +1,14 @@
 <%- include('partials/header') %>
-<div class="login-form">
+<div  class="position-absolute top-50 start-50 translate-middle"">
 <form class="form" method="post" action="/signin">
     <div align="center">
         <h1>Sign In</h1>
-    <div class="form-group signin">
-        <label for="email">Email address</label>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
         <input type="email" name="email" class="form-control" id="email" placeholder="Email">
     </div>
-    <div class="form-group signin">
-        <label for="password">Password</label>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
         <input type="password" name="password" class="form-control" id="password" placeholder="Password">
     </div>
     <button type="submit" class="btn btn-danger">Submit</button>
