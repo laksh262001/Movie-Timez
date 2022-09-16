@@ -11,9 +11,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
-mongoose.connect("mongodb://localhost:27017/userDB");
+// mongoose.connect("mongodb://localhost:27017/userDB");
 const welcome = "Welcome to Movie Timez. Select your favourite movie and enjoy watching!";
-
+mongoose.connect("mongodb+srv://pushpak696:IxPw7a6XroFz1wv0@cluster0.4aydr2o.mongodb.net/movieDB");
 // image schema starts here
 // ref to image adding code https://www.geeksforgeeks.org/upload-and-retrieve-image-on-mongodb-using-mongoose/ 
 
