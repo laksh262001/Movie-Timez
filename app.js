@@ -122,7 +122,9 @@ app.post("/register", function(req, res){
 app.get('/seatBooking',function(req, res){
     res.render('seatBooking');
 });
+app.post('/seatBooking',function(req, res){
 
+});
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
 });
