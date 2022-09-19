@@ -1,4 +1,4 @@
-# Movie Timez README.md
+# Movie Timez 
 
 | Project Title | Online Movie Ticket Booking |
 | --- | --- |
