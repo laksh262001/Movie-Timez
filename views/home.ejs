@@ -1,3 +1,18 @@
 <%- include('partials/header') %>
 <p><strong><%= lines %></strong></p>
+<h1>Uploaded Images</h1>
+<div class="container">
+    <% items.forEach(function(image) { %>
+    <div class="row">
+        <div class="col">
+            <img src="data:image/<%=image.img.contentType%>;base64,
+                    <%=image.img.data.toString('base64')%>">
+            <div>
+                <h5><%= image.name %></h5>
+                <p><%= image.desc %></p>
+            </div>
+        </div>
+    </div>
+    <% }) %>
+</div>
 <%- include("partials/footer"); -%>

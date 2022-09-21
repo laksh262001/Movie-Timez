@@ -44,7 +44,15 @@ const userSchema = new mongoose.Schema ({
 const User = mongoose.model("User", userSchema);
 
 app.get("/", function(req, res){
-    res.render("home", {lines: welcome,});
+    imgModel.find({}, (err, items) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('home', { items: items, lines: welcome,});
+        }
+    });
   });
 
 app.get('/signin',function(req,res){
