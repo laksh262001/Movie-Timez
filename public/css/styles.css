@@ -107,7 +107,7 @@ a,a:hover, a:focus, a:active {
     -webkit-appearance: none;
     appearance: none;
 }
-.seat .selected{
+.seat.selected{
     background-color: #ffffff;
 }
 
@@ -168,6 +168,4 @@ p.text{
 p.text span{
     color: #FF0000;
 }
-
-
 
