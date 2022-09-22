@@ -7,6 +7,9 @@ var fs = require('fs');
 var path = require('path');
 require('dotenv/config');
 const app = express();
+const http = require('http');
+const formidable = require('formidable');
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -18,6 +21,7 @@ const welcome = "Welcome to Movie Timez. Select your favourite movie and enjoy w
 // image schema starts here
 // ref to image adding code https://www.geeksforgeeks.org/upload-and-retrieve-image-on-mongodb-using-mongoose/ 
 
+let posts = [];
 app.use(bodyParser.json());
 var multer = require('multer');
   
@@ -89,7 +93,7 @@ app.post('/imagesPage', upload.single('image'), function(req, res, next){
         }
         else {
             // item.save();
-            res.redirect('/imagesPage');
+            res.redirect('/');
         }
     });
 });
@@ -133,6 +137,48 @@ app.get('/seatBooking',function(req, res){
 app.post('/seatBooking',function(req, res){
 
 });
+
+
+app.get("/reviews", function(req, res){
+    res.render("reviews");
+  });
+  
+  app.get("/feedback", function(req, res){
+    res.render("feedback", {posts:posts});
+  });
+  
+
+  app.post("/reviews", function(req, res){
+    
+    const post = {
+      email: req.body.postEmail,  
+      title: req.body.postTitle,
+      content: req.body.postBody
+    };
+  
+    posts.push(post);
+    res.redirect("/feedback");
+  });
+  
+  app.get("/posts/:postName", function(req, res){
+    const requestedTitle =_.lowerCase(req.params.postName);
+  
+    posts.forEach(function(post){
+      const storedTitle = _.lowerCase(post.title);
+  
+      if (storedTitle === requestedTitle){
+        res.render("post", {
+          email:post.email,  
+          title:post.title,
+          content:post.content
+        });
+      }
+    });
+  });
+  
+
+
+
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
 });
