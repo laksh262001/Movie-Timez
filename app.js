@@ -183,6 +183,6 @@ app.get("/reviews", function(req, res){
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
 });
-app.get('/seat',function(req,res){
-    res.render('seat');
+app.get('/view',function(req,res){
+    res.render('view');
 });
