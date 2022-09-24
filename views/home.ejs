@@ -3,15 +3,14 @@
 <h1>Uploaded Images</h1>
 <div class="container">
     <% items.forEach(function(image) { %>
-    <div class="row">
+    <div class="row" >
         <div class="column">
-            <img src="data:image/<%=image.img.contentType%>;base64,
-                    <%=image.img.data.toString('base64')%>">
-            <div>
+            <a href="/seatBooking">
+                <img src="data:image/<%=image.img.contentType%>;base64,
+                    <%=image.img.data.toString('base64')%>" style="width:200px; height:200px;" >
                 <h5><%= image.name %></h5>
                 <p><%= image.desc %></p>
-                <button type="button" class="btn btn-danger"><li><a href="/reviews">Rate</a></li></button>
-            </div>
+            </a>
         </div>
     </div>
     <% }) %>

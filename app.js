@@ -36,6 +36,7 @@ var storage = multer.diskStorage({
   
 var upload = multer({ storage: storage });
 var imgModel = require('./model');
+const { response } = require('express');
 // image schema ends here
 
 const userSchema = new mongoose.Schema ({
@@ -107,7 +108,7 @@ app.post("/signin", function(req, res){
             }else{
                 if(foundUser){
                     if(foundUser.password==password){
-                        res.redirect("/");
+                        res.redirect("/seatBooking");
                     }
                 }
             }
@@ -123,10 +124,15 @@ app.post("/register", function(req, res){
 
     });
     newUser.save(function(err){
+        // if(){
+        //     res.sendFile(__dirname + "/seatBooking")
+        // } else{
+        //     res.sendFile(__dirname + "/signup")
+        // }
         if(err){
             console.log(err);
         } else {
-            res.redirect('/');
+            res.redirect('/signin');
         }
     });
 });
@@ -136,6 +142,7 @@ app.get('/seatBooking',function(req, res){
 });
 app.post('/seatBooking',function(req, res){
     const seatValue = req.body.name;
+    
     console.log(seatValue);
 });
 
