@@ -29,12 +29,12 @@
 	<hr>
 
 	<h1>Uploaded Images</h1>
-	<div class="container">
+	<div class="container" id="movies">
 		<% items.forEach(function(image) { %>
 		<div class="row">
 			<div class="col">
 				<img src="data:image/<%=image.img.contentType%>;base64,
-						<%=image.img.data.toString('base64')%>">
+						<%=image.img.data.toString('base64')%>" style="width:200px;height:200px;">
 				<div>
 					<h5><%= image.name %></h5>
 					<p><%= image.desc %></p>

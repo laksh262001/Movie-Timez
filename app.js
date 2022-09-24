@@ -9,22 +9,18 @@ require('dotenv/config');
 const app = express();
 const http = require('http');
 const formidable = require('formidable');
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-
 mongoose.connect("mongodb://localhost:27017/movieDB");
 const welcome = "Welcome to Movie Timez. Select your favourite movie and enjoy watching!";
 // comment it down if you are using local database
 // mongoose.connect("mongodb+srv://pushpak696:IxPw7a6XroFz1wv0@cluster0.4aydr2o.mongodb.net/movieDB");
 // image schema starts here
 // ref to image adding code https://www.geeksforgeeks.org/upload-and-retrieve-image-on-mongodb-using-mongoose/ 
-
 let posts = [];
 app.use(bodyParser.json());
 var multer = require('multer');
-  
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads')
@@ -139,6 +135,7 @@ app.post("/register", function(req, res){
 
 app.get('/seatBooking',function(req, res){
     res.render('seatBooking');
+
 });
 app.post('/seatBooking',function(req, res){
     const seatValue = req.body.name;
@@ -189,7 +186,4 @@ app.get("/reviews", function(req, res){
 
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
-});
-app.get('/view',function(req,res){
-    res.render('view');
 });
