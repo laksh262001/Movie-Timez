@@ -18,8 +18,7 @@
       </div>
         <form class="navbar-form navbar">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search movie">
-          </div>
+            <input type="text" class="form-control" placeholder="Search movie" id="searchbar" onkeyup="search_animal()">
           <button type="submit" class="btn btn-danger">
             <span class="glyphicon glyphicon-search"></span> Search
           </button>
@@ -29,3 +28,25 @@
   </nav>
 </head>
 <body>
+<script>
+  function search_animal() {
+    let input = document.getElementById('searchbar').value
+    input=input.toLowerCase();
+    let x = document.getElementsByClassName('animals');
+      
+    for (i = 0; i < x.length; i++) { 
+        if (!x[i].innerHTML.toLowerCase().includes(input)) {
+            x[i].style.display="none";
+        }
+        else {
+            x[i].style.display="list-item";                 
+        }
+    }
+}
+</script>
+<ol id='list'>
+  <li class="movies_list">Pushpak</li>
+  <li class="movies_list">Lakshmi</li>
+  <li class="movies_list">Meghana</li>
+  <li class="movies_list">Durgashree</li>
+</ol>
