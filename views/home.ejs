@@ -5,20 +5,26 @@
     <div class="form-group">
       <input type="text" class="form-control" placeholder="Search movie" id="searchbar" onkeyup="search_animal()">
       <ul id='list'>
-        <% items.forEach(function(image) { %>
-        <li class="animals">    
-            <div class="row" >
-            <div class="column">
+         
+          <li class="animals">    
+            <div class="border-dark mb-3 row1" style="width: 18rem;" >
+                
+            <div class="col1" >
+                <% items.forEach(function(image) { %> 
                 <a href="/seatBooking">
                     <img src="data:image/<%=image.img.contentType%>;base64,
-                        <%=image.img.data.toString('base64')%>" style="width:200px; height:200px;" >
-                    <h5><%= image.name %></h5>
-                    <p><%= image.desc %></p>
+                        <%=image.img.data.toString('base64')%>" style="width:18rem; height:300px;" >
+                        <div class="card-body" align="center">
+                        <h5 class ='card-body' id="image_name"><%= image.name %></h5>
+                        <p class ='card-body' id="image_desc"><%= image.desc %></p>
+                    </div>
                 </a>
+                
             </div>
         </div>
-        </li>
         <% }) %>
+        </li>
+        
     </ul>
     <!-- <button type="submit" class="btn btn-danger">
       <span class="glyphicon glyphicon-search"></span> Search

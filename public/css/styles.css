@@ -262,3 +262,26 @@ table {
 .movies_list{
   display: list-item;    
  } 
+
+#image_name{
+  color: #000000;
+}
+
+#image_desc{
+  color: #000000;
+}
+
+.row1 {
+  display: flex;
+}
+
+.col1 {
+  flex: 33.33%;
+  /* padding: 5px; */
+}
+
+@media screen and (max-width: 500px) {
+  .col1 {
+    width: 100%;
+  }
+}
