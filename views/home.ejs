@@ -5,27 +5,25 @@
     <div class="form-group">
       <input type="text" class="form-control" placeholder="Search movie" id="searchbar" onkeyup="search_animal()">
       <ul id='list'>
-         
-          <li class="animals">    
-            <div class="border-dark mb-3 row1" style="width: 18rem;" >
-                
-            <div class="col1" >
-                <% items.forEach(function(image) { %> 
-                <a href="/seatBooking">
-                    <img src="data:image/<%=image.img.contentType%>;base64,
-                        <%=image.img.data.toString('base64')%>" style="width:18rem; height:300px;" >
-                        <div class="card-body" align="center">
-                        <h5 class ='card-body' id="image_name"><%= image.name %></h5>
-                        <p class ='card-body' id="image_desc"><%= image.desc %></p>
-                    </div>
-                </a>
-                
-            </div>
-        </div>
-        <% }) %>
-        </li>
-        
-    </ul>
+            <li class="animals" id="width-col" style="list-style: none;">    
+            <div class="row mb-3"> 
+                <% items.forEach(function(image) { %>    
+                <div class="column card" style="margin: 10px; width: 30.33%;" align="center">
+                    <a href="/seatBooking">
+                            <img src="data:image/<%=image.img.contentType%>;base64,
+                            <%=image.img.data.toString('base64')%>" style="width:18rem; height:300px; padding-top: 2%;" >
+                            <div class="card-body" >
+                                <h5 class ='card-body' id="image_name"><%= image.name %></h5>
+                                <p class ='card-body' id="image_desc"><%= image.desc %></p>
+                            </div>
+                    </a>
+                </div>
+                <% }) %>
+            </div>  
+            </li>
+        </ul>
+    </div>
+    
     <!-- <button type="submit" class="btn btn-danger">
       <span class="glyphicon glyphicon-search"></span> Search
     </button> -->
