@@ -187,8 +187,8 @@ app.get('/view', function(req, res){
 });
 
 var instance = new Razorpay({
-    key_id: 'key_secret',
-    key_secret: 'rzp_live_ktDypN6bJylEcOcuQQs4alNbDDFX9IbvY5VOoQ',
+    key_id: '',
+    key_secret: '',
   });
 
 app.get('/payment', function(req, res){
