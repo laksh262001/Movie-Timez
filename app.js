@@ -8,6 +8,7 @@ var path = require('path');
 require('dotenv/config');
 const app = express();
 const http = require('http');
+const Razorpay = require('razorpay');
 const formidable = require('formidable');
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
@@ -185,8 +186,47 @@ app.get('/view', function(req, res){
     res.render('view');
 });
 
+var instance = new Razorpay({
+    key_id: '',
+    key_secret: '',
+  });
+
+app.get('/payment', function(req, res){
+res.render('payment');
+});
 
 
+app.post('/payment', function(req, res){
+    console.log("Create payment request", req.body);
+    var options = {
+        amount: req.body.amount,  // amount in the smallest currency unit
+        currency: "INR",
+        receipt: "rcp1"
+      };
+      instance.orders.create(options, function(err, order) {
+        console.log(order);
+        res.send({orderId: order.id});
+      });
+});
+
+
+
+app.post("/api/payment/verify",(req,res)=>{
+
+    let body=req.body.response.razorpay_order_id + "|" + req.body.response.razorpay_payment_id;
+   
+     var crypto = require("crypto");
+     var expectedSignature = crypto.createHmac('sha256', '<YOUR_API_SECRET>')
+                                     .update(body.toString())
+                                     .digest('hex');
+                                     console.log("sig received " ,req.body.response.razorpay_signature);
+                                     console.log("sig generated " ,expectedSignature);
+     var response = {"signatureIsValid":"false"}
+     if(expectedSignature === req.body.response.razorpay_signature)
+      response={"signatureIsValid":"true"}
+         res.send(response);
+     });
+   
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
 });
