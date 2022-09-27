@@ -1,0 +1,19 @@
+<%- include('partials/header') %>
+<div align="center" class="position-absolute top-50 start-50 translate-middle">
+<form action="/createOrder" method="post" class="form">
+    <div class="mb-3">
+        <label for="amount" class="form-label">Amount</label>
+        <input type="text" value="499" name="amount" class="form-control"></input>
+    </div>
+    <div class="mb-3">
+        <label for="amount" class="form-label">Currency</label>
+        <input type="text" value="INR" name="currency" class="form-control"></input>
+    </div>
+    <div class="mb-3">
+        <label for="amount" class="form-label">Receipt</label>
+        <input type="text" value="214" name="receipt" class="form-control"></input>
+    </div>
+    <button type="submit" class="btn btn-danger">Agree</button>
+</form>
+</div>
+<%- include("partials/footer"); -%>

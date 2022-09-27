@@ -1,72 +1,96 @@
-<h1>Book a ticket</h1>
+<!-- Inside index.html -->
+<!DOCTYPE html>
+<html lang="en">
 
-<button id="rzp-button1">Pay</button>
+<head>
+	<meta charset="utf-8" />
+	<meta content=
+		"This is a demo of Web integration
+		of Razorpay in NodeJS"
+		author="Pushpak" />
+	<title>Movie Timez</title>
+</head>
+
+<body>
+	<hr/>
+	<h2>Movie-Timez</h2>
+
+	<ul>
+		<li>Best Course for SDE placements</li>
+		<li>
+			Available in 4 major Languages JAVA,
+			C/C++, Python, Javascript
+		</li>
+		<li>Lifetime Access</li>
+	</ul>
+
+	<span> Cost:- 499 Rupees
+		<button id="pay-button" >
+			Pay Now & Get Access
+		</button>
+	</span>
+	<hr/>
+
+	<!-- Processing Payment Checkout -->
+	<!-- We will write code for payment here,
+		Replace this comment with the code we
+		are explaining below in step 5 of the
+		article -->
+</body>
+
+</html>
+
+<!--Inside index.html -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
 <script>
-    var orderId ;
-$(document).ready(function(){
-    var settings = {
-  "url": "/payment",
-  "method": "POST",
-  "timeout": 0,
-  "headers": {
-    "Content-Type": "application/json"
-  },
-  "data": JSON.stringify({
-    "amount": "100"
-  }),
+var options = {
+	"key": "rzp_test_tGWpihUJ1HzHKv",
+	"amount": "499",
+	"currency": "INR",
+	"name": "Dummy Academy",
+	"description": "Pay & Checkout this Course, Upgrade your DSA Skill",
+		"image": "https://media.geeksforgeeks.org/wp-content/uploads/20210806114908/dummy-200x200.png",
+	"order_id":  "order_KMzCs7iIlahe5I",
+	"handler": function (response){
+		console.log(response)
+		alert("This step of Payment Succeeded");
+	},
+	"prefill": {
+		//Here we are prefilling random contact
+		"contact":"9876543210",
+		//name and email id, so while checkout
+		"name": "Twinkle Sharma",
+		"email": "smtwinkle@gmail.com",
+	},
+	"notes" : {
+		"description":"Best Course for SDE placements",
+		"language":"Available in 4 major Languages JAVA,C/C++, Python, Javascript","access":"This course have Lifetime Access"
+	},
+	"theme": {
+		"color": "#528FF0"
+	}
 };
-
-//creates new orderId everytime
-$.ajax(settings).done(function (response) {
-
-  orderId=response.orderId;
-  console.log(orderId);
-  $("button").show();
+var razorpayObject = new Razorpay(options);
+console.log(razorpayObject);
+razorpayObject.on('payment.failed', function (response){
+		console.log(response);
+		alert("This step of Payment Failed");
 });
-});
-
-document.getElementById('rzp-button1').onclick = function(e){
-    var options = {
-        "key": '', // Enter the Key ID generated from the Dashboard
-        "amount": "100", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-        "currency": "INR",
-        "name": "Avatar",
-        "description": "Best movie ever",
-        "image": "https://example.com/your_logo",
-        "order_id":orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        "handler": function (response){
-            alert(response.razorpay_payment_id);
-            alert(response.razorpay_order_id);
-            alert(response.razorpay_signature);
-            var settings = {
-                "url": "/api/payment/verify",
-                "method": "POST",
-                "timeout": 0,
-                "headers": {
-                  "Content-Type": "application/json"
-                },
-                "data": JSON.stringify({response}),
-              }
-              
-        }
-    };
-
-    
-    var rzp1 = new Razorpay(options);
-rzp1.on('payment.failed', function (response){
-        alert(response.error.code);
-        alert(response.error.description);
-        alert(response.error.source);
-        alert(response.error.step);
-        alert(response.error.reason);
-        alert(response.error.metadata.order_id);
-        alert(response.error.metadata.payment_id);
-});
-    rzp1.open();
-    e.preventDefault();
+	
+document.getElementById('pay-button').onclick = function(e){
+	razorpayObject.open();
+	e.preventDefault();
 }
-
-
 </script>
+
+ <!-- post req to server http://localhost:3000/createOrder -->
+<!-- {
+  "amount": "499",
+  "currency": "INR",
+  "receipt": "dsaacvancedrecum#214",
+  "notes": {
+      "description":"Best Course for SDE placements",
+      "language": "Available in 4 major Languages JAVA,C/C++, Python, Javascript",
+      "access":"This course have Lifetime Access"
+  }
+} -->
