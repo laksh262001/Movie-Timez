@@ -30,29 +30,23 @@
 		</button>
 	</span>
 	<hr/>
-
-	<!-- Processing Payment Checkout -->
-	<!-- We will write code for payment here,
-		Replace this comment with the code we
-		are explaining below in step 5 of the
-		article -->
-<h1><%=ordid%></h1>
 	</body>
-
+	
 </html>
 
 <!--Inside index.html -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
+	let data = '<%- ordid.orderid %>';
 var options = {
 	"key": "rzp_test_tGWpihUJ1HzHKv",
-	"amount": "499",
+	"amount": "49900",
 	"currency": "INR",
-	"name": "Dummy Academy",
-	"description": "Pay & Checkout this Course, Upgrade your DSA Skill",
-		"image": "https://media.geeksforgeeks.org/wp-content/uploads/20210806114908/dummy-200x200.png",
+	"name": "Movie Timez",
+	"description": "Pay for Movie Timez",
+		"image": "https://github.com/PushpakkumarBH/Movie-Timez/blob/main/public/images/Movie.png",
 
-	"order_id":  ordid.orderid ,
+	"order_id":  data,
 
 	"handler": function (response){
 		console.log(response)
@@ -62,12 +56,11 @@ var options = {
 		//Here we are prefilling random contact
 		"contact":"9876543210",
 		//name and email id, so while checkout
-		"name": "Twinkle Sharma",
-		"email": "smtwinkle@gmail.com",
+		"name": "DEMO",
+		"email": "12@gmail.com",
 	},
 	"notes" : {
-		"description":"Best Course for SDE placements",
-		"language":"Available in 4 major Languages JAVA,C/C++, Python, Javascript","access":"This course have Lifetime Access"
+		"description":"Best Movie Booking Place",
 	},
 	"theme": {
 		"color": "#528FF0"

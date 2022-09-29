@@ -185,7 +185,7 @@ app.get("/reviews", function(req, res){
 
 
 const orderSchema = new mongoose.Schema({
-    orderid: String
+    orderid: String,
 });
 
 const Orderid = mongoose.model("Order", orderSchema);
@@ -205,7 +205,10 @@ app.post('/createOrder', (req, res)=>{
             }
          });
 		if(!err){
-			res.json(order);
+			// res.json(order.orderid);
+            Orderid.find({}, function(err, result){
+            res.render('payment',{ordid:result});
+            });
         }
 		else
 			res.send(err);
@@ -237,7 +240,6 @@ app.post("/api/payment/verify",(req,res)=>{
 
 
 app.get('/payment', function(req, res){
-
     Orderid.find({}, function(err, result){
         if(err)
         {
@@ -247,8 +249,6 @@ app.get('/payment', function(req, res){
         }
     });
 
-    res.render('payment');
-    
 });
 
 app.listen(process.env.PORT || 3000, function(){
