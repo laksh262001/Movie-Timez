@@ -237,6 +237,7 @@ app.post("/api/payment/verify",(req,res)=>{
 
 
 app.get('/payment', function(req, res){
+
     Orderid.find({}, function(err, result){
         if(err)
         {
@@ -245,7 +246,11 @@ app.get('/payment', function(req, res){
             res.render("payment", {ordid:result});
         }
     });
+
+    res.render('payment');
+    
 });
+
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
 });
