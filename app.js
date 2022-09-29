@@ -183,10 +183,27 @@ app.get("/reviews", function(req, res){
     key_secret: 'uJXQpLCYz2Ip3DGiVIa7yP5E',
   });
 
+
+const orderSchema = new mongoose.Schema({
+    orderid: String
+});
+
+const Orderid = mongoose.model("Order", orderSchema);
+
 app.post('/createOrder', (req, res)=>{
 	const {amount,currency,receipt, notes} = req.body;	
 	razorpayInstance.orders.create({amount, currency, receipt, notes},
 		(err, order)=>{
+         const newOrder = new Orderid({
+            orderid: order.id
+         });
+         newOrder.save(function(err){
+            if(err){
+                console.log(err);
+            } else {
+                res.send("Success");
+            }
+         });
 		if(!err){
 			res.json(order);
         }
@@ -195,6 +212,8 @@ app.post('/createOrder', (req, res)=>{
 		}
 	)
 });
+
+
 
 app.get('/createOrder', (req, res)=>{
     res.render('createOrder');
@@ -215,10 +234,17 @@ app.post("/api/payment/verify",(req,res)=>{
       response={"signatureIsValid":"true"}
          res.send(response);
      });
-   
+
 
 app.get('/payment', function(req, res){
-    res.render('payment');
+    Orderid.find({}, function(err, result){
+        if(err)
+        {
+            console.log(err);
+        } else {
+            res.render("payment", {ordid:result});
+        }
+    });
 });
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');

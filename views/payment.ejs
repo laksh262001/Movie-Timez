@@ -36,7 +36,8 @@
 		Replace this comment with the code we
 		are explaining below in step 5 of the
 		article -->
-</body>
+<h1><%=ordid%></h1>
+	</body>
 
 </html>
 
@@ -50,7 +51,7 @@ var options = {
 	"name": "Dummy Academy",
 	"description": "Pay & Checkout this Course, Upgrade your DSA Skill",
 		"image": "https://media.geeksforgeeks.org/wp-content/uploads/20210806114908/dummy-200x200.png",
-	"order_id":  "order_KMzCs7iIlahe5I",
+	"order_id":  ordid.orderid ,
 	"handler": function (response){
 		console.log(response)
 		alert("This step of Payment Succeeded");
