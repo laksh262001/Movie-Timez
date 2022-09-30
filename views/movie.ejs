@@ -1,0 +1,10 @@
+<%- include('partials/header') %>
+
+<img src="data:image/<%=image.img.contentType%>;base64,
+                            <%=image.img.data.toString('base64')%>" style="width:18rem; height:300px; padding-top: 2%;" >
+                            <div class="card-body" >
+                                <h5 class ='card-body' id="image_name"><%= image.name %></h5>
+                                <p class ='card-body' id="image_desc"><%= image.desc %></p>
+                            </div>
+
+<%- include("partials/footer"); -%>

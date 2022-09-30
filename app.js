@@ -10,16 +10,24 @@ const app = express();
 const http = require('http');
 const Razorpay = require('razorpay');
 const formidable = require('formidable');
+
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+
+
+
 mongoose.connect("mongodb://localhost:27017/movieDB");
 const welcome = "Welcome to Movie Timez. Select your favourite movie and enjoy watching!";
+
+
 // comment it down if you are using local database
 // mongoose.connect("mongodb+srv://pushpak696:IxPw7a6XroFz1wv0@cluster0.4aydr2o.mongodb.net/movieDB");
 // image schema starts here
 // ref to image adding code https://www.geeksforgeeks.org/upload-and-retrieve-image-on-mongodb-using-mongoose/ 
-let posts = [];
+
+
 app.use(bodyParser.json());
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -139,44 +147,64 @@ app.post('/seatBooking',function(req, res){
     console.log(seatValue);
 });
 
+const postSchema = {
+    email: String,
+    title: String,
+    content: String
+};
+const Post = mongoose.model("Post", postSchema);
 
 app.get("/reviews", function(req, res){
     res.render("reviews");
   });
-  
+
   app.get("/feedback", function(req, res){
-    res.render("feedback", {posts:posts});
+    Post.find({}, function(err, posts){
+        res.render("feedback",{posts: posts});
+    });
   });
   
-
   app.post("/reviews", function(req, res){
-    
-    const post = {
+    const post = new Post({
       email: req.body.postEmail,  
       title: req.body.postTitle,
       content: req.body.postBody
-    };
-  
-    posts.push(post);
-    res.redirect("/feedback");
-  });
-  
-  app.get("/posts/:postName", function(req, res){
-    const requestedTitle =_.lowerCase(req.params.postName);
-  
-    posts.forEach(function(post){
-      const storedTitle = _.lowerCase(post.title);
-  
-      if (storedTitle === requestedTitle){
-        res.render("post", {
-          email:post.email,  
-          title:post.title,
-          content:post.content
-        });
-      }
     });
+  
+    post.save(function(err){
+        if (!err){
+            res.redirect("/feedback");
+        }
+    });
+    // res.redirect("/feedback");
   });
- 
+  
+  app.get("/posts/:postId", function(req, res){
+
+    const requestedTitleId = req.params.postId;
+
+    Post.findOne({_id: requestedTitleId}, function(err, post){
+        res.render("post", {
+                      email:post.email,  
+                      title:post.title,
+                      content:post.content
+    });
+});
+});
+
+
+    // const requestedTitle =_.lowerCase(req.params.postName);
+    // posts.forEach(function(post){
+    //   const storedTitle = _.lowerCase(post.title);
+  
+//       if (storedTitle === requestedTitle){
+//         res.render("post", {
+//           email:post.email,  
+//           title:post.title,
+//           content:post.content
+//         });
+//       }
+
 // Razorpay Integration statrs here
   const razorpayInstance = new Razorpay({
     key_id: 'rzp_test_tGWpihUJ1HzHKv',
@@ -197,13 +225,7 @@ app.post('/createOrder', (req, res)=>{
          const newOrder = new Orderid({
             orderid: order.id
          });
-         newOrder.save(function(err){
-            if(err){
-                console.log(err);
-            } else {
-                res.send("Success");
-            }
-         });
+         newOrder.save();
 		if(!err){
 			// res.json(order.orderid);
             Orderid.find({}, function(err, result){
@@ -249,6 +271,14 @@ app.get('/payment', function(req, res){
         }
     });
 
+});
+
+app.get('/movie', function(req, res){
+    res.render('movie');
+});
+
+app.post("/movie", function(req, res){
+    res.redirect("/movie");
 });
 
 app.listen(process.env.PORT || 3000, function(){
