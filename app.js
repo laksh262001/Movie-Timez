@@ -273,13 +273,23 @@ app.get('/payment', function(req, res){
 
 });
 
-app.get('/movie', function(req, res){
-    res.render('movie');
+
+
+app.get('/movie/:topic', function(req, res){
+    const requestedTitle = req.params.topic;
+    imgModel.find({name:requestedTitle}, (err, item) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+
+        }
+        else {
+            // res.render('movie', { items: item});
+            res.render("movie", {items:item});
+        }
+    });
 });
 
-app.post("/movie", function(req, res){
-    res.redirect("/movie");
-});
 
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
