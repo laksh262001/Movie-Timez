@@ -1,16 +1,16 @@
 <%- include('partials/header') %>
  <% items.forEach(function(image) { %>
-    
-     <div class="row mb-3">
-        <div class="column">
+<div class="row">
+    <div class="column" style="margin: 10px; width: 30%;" align="center">
                 <img src="data:image/<%=image.img.contentType%>;base64,
                 <%=image.img.data.toString('base64')%>" style="width:18rem; height:300px; padding-top: 2%;" >
-                <div class="column">
-                    <h5  id="image_name"><%= image.name %></h5>
-                    <p class ='card-body' id="image_desc"><%= image.desc %></p>
+                <div class="column" id="image_tag" >
+                    <h5 id="image_name"><%= image.name %></h5>
+                    <p id="image_desc"><%= image.desc %></p>
+                    <a href="../seatBooking"><button class="btn btn-danger">Book</button></a>
                 </div>
-            </div>
-     </div>
 
- <% }) %>
+    </div>
+</div>
+<% }) %>
 <%- include("partials/footer"); -%>

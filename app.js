@@ -113,7 +113,7 @@ app.post("/signin", function(req, res){
             }else{
                 if(foundUser){
                     if(foundUser.password==password){
-                        res.redirect("/seatBooking");
+                        res.redirect("/createOrder");
                     }
                 }
             }
@@ -142,9 +142,7 @@ app.get('/seatBooking',function(req, res){
 
 });
 app.post('/seatBooking',function(req, res){
-    const seatValue = req.body.name;
-    
-    console.log(seatValue);
+    res.render('createOrder');
 });
 
 const postSchema = {
@@ -294,3 +292,6 @@ app.get('/movie/:topic', function(req, res){
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
 });
+
+
+

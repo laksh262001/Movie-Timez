@@ -163,3 +163,8 @@ table {
   width:90%;
   margin: 10px;
 }
+#image_tag{
+  float: right;
+  padding-left: 10px;
+  padding-top: 10px;
+}
