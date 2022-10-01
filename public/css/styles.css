@@ -39,11 +39,11 @@ body{
     padding-left: 10px; 
     padding-right: 10px;
     margin-top: 10px;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
     margin-left: 0px;
     margin-right: 0px;
     position: fixed;
-    bottom: 0px;
+    bottom: -10px;
     width: 100%;
 }
 
@@ -162,9 +162,4 @@ table {
 #searchbar{
   width:90%;
   margin: 10px;
-}
-#image_tag{
-  float: right;
-  padding-left: 10px;
-  padding-top: 10px;
 }
