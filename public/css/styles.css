@@ -39,12 +39,13 @@ body{
     padding-left: 10px; 
     padding-right: 10px;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     margin-left: 0px;
     margin-right: 0px;
     position: fixed;
-    bottom: -10px;
+    bottom: 0px;
     width: 100%;
+
 }
 
 .img-fluid{
@@ -69,62 +70,7 @@ a,a:hover, a:focus, a:active {
     text-decoration: none;
     color: inherit;
 }
-/* css of views */
-table {
-    margin: 0 auto;
-    text-align: center;
-    border-collapse: collapse;
-    border: 1px solid #d4d4d4;
-    font-size: 20px;
-    background: #fff;
-  }
-   
-  table th, 
-  table tr:nth-child(2n+2) {
-    background: #e7e7e7;
-  }
-    
-  table th, 
-  table td {
-    padding: 20px 50px;
-  }
-    
-  table th {
-    border-bottom: 1px solid #d4d4d4;
-  }
-  .stars-outer {
-    display: inline-block;
-    position: relative;
-    font-family: FontAwesome;
-  }
-   
-  .stars-outer::before {
-    content: "\f006 \f006 \f006 \f006 \f006";
-  }
-   
-  .stars-inner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 0;
-  }
-   
-  .stars-inner::before {
-    content: "\f005 \f005 \f005 \f005 \f005";
-    color: #f8ce0b;
-  }
-  .stars-outer::before {
-    content: "\f006 \f006 \f006 \f006 \f006";
-  }
-   
-  .stars-inner::before {
-    content: "\f005 \f005 \f005 \f005 \f005";
-  }
-  .stars-inner {
-    width: 0;
-  }
+  
   #movies{
     display: flex;
     flex-wrap: wrap;
@@ -162,4 +108,90 @@ table {
 #searchbar{
   width:90%;
   margin: 10px;
+}
+
+/* CSS for seatbooking */
+#Username{
+  border:none;
+  border-bottom:1px solid;
+}
+
+.screen{
+  width:100%;
+  height:20px;
+  background:#2C3333;
+  color:#fff;
+  line-height:20px;
+  font-size:15px;
+}
+
+.smallBox::before{
+  content:".";
+  width:15px;
+  height:15px;
+  float:left;
+  margin-right:10px;
+}
+.greenBox::before{
+  content:"";
+  background:Green;
+}
+.redBox::before{
+  content:"";
+  background:Red;
+}
+.emptyBox::before{
+    content:"";
+  box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
+    background-color:#ccc;
+}
+
+.seats{
+  border:1px solid red;background:yellow;
+} 
+.seatGap{
+  width:40px;
+}
+
+.seatVGap{
+  height:40px;
+}
+
+table{
+  text-align:center;
+}
+
+
+.Displaytable{
+  text-align:center;
+}
+.Displaytable td, .Displaytable th {
+    border: 1px solid;
+    text-align: left;
+}
+
+textarea{
+  border:none;
+  background:transparent;
+}
+
+input[type=checkbox] {
+    width:0px;
+    margin-right:18px;
+}
+
+input[type=checkbox]:before {
+    content: "";
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    vertical-align:middle;
+    text-align: center;
+    box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
+    background-color:#ccc;
+}
+
+input[type=checkbox]:checked:before {
+    background-color:Green;
+    font-size: 15px;
 }
