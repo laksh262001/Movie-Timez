@@ -1,12 +1,15 @@
 <%- include('partials/header') %>
  <% items.forEach(function(image) { %>
 <div class="row">
-    <div class="column" style="margin: 10px; width: 30%;" align="center">
+    <div class="column" style="margin: 10px; width: 100%;">
+        <div style="width: 20%; float:left;" >
                 <img src="data:image/<%=image.img.contentType%>;base64,
                 <%=image.img.data.toString('base64')%>" style="width:18rem; height:300px; padding-top: 2%;" >
-                <div class="column" id="image_tag" >
-                    <h5 id="image_name"><%= image.name %></h5>
-                    <p id="image_desc"><%= image.desc %></p>
+            </div>
+                <div class="column" style="width: 80%; float:right;">
+                    
+                    <h1 id="image_name" style="font-family: 'Times New Roman', serif;"><%= image.name %></h1>
+                    <p id="image_desc" style="font-size: 15px ;"><%= image.desc %></p>
                     <a href="../seatBooking"><button class="btn btn-danger">Book</button></a>
                 </div>
 
