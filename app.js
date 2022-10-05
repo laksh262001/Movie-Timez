@@ -140,12 +140,21 @@ app.post("/register", function(req, res){
     });
 });
 
+app.patch('/seatBooking', function(req, res){
+    console.log(req.body.name);
+    console.log(req.body.seats);
+    res.render('seatBooking');
+});
+
 app.get('/seatBooking',function(req, res){
+    console.log(req.body.name);
+    console.log(req.body.seats);
     res.render('seatBooking');
 
 });
 app.post('/seatBooking',function(req, res){
-    res.render('createOrder');
+
+    res.render('signin');
 });
 
 const postSchema = {
