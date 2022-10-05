@@ -301,6 +301,57 @@ app.get('/movie/:topic', function(req, res){
 });
 
 
+app.get('/theater', function(req, res){
+    res.render('theater');
+});
+
+app.get('/deletemovie', function(req, res){
+    imgModel.find({}, (err, items) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('deletemovie', { items: items });
+        }
+    });
+});
+
+app.post('/deletemovie', function(req, res){
+    imgModel.deleteOne({title: req.body.name}, function(err){
+        if(err){
+            console.log(err);
+        } else{
+            res.render('theater');
+        }
+    });
+});
+
+app.get('/updatemovie', function(req, res){
+    imgModel.find({}, (err, items) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('updatemovie', { items: items });
+        }
+    });
+});
+
+app.post('/updatemovie', function(req, res){
+    const title = req.body.name;
+    const desc = req.body.desc;
+    imgModel.updateOne({name: title}, {$set:{desc: req.body.desc}},
+         function(err, result){
+        if(err){
+            console.log(err);
+        } else{
+            res.render('theater');
+        }
+    });
+});
+
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
 });
