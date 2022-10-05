@@ -6,7 +6,9 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const passportLocalMongoose = require("passport-local-mongoose");
-const User = require("./models/user");
+const { check, validationResult} = require("express-validator/check");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 var fs = require('fs');
 var path = require('path');
 require('dotenv/config');
@@ -58,16 +60,7 @@ const userSchema = new mongoose.Schema ({
 const User = mongoose.model("User", userSchema);
 
 // code for aruthentication starts here
-app.use(require("express-session")({
-    secret: "Rusty is a dog",
-    resave: false,
-    saveUninitialized: false
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+
 // code for authentication ends here
 
 app.get("/", function(req, res){
@@ -130,6 +123,7 @@ app.post("/signin", function(req, res){
     User.findOne({email: emailadd}, function(err, foundUser){
             if(err){
                 console.log(err);
+                res.send('Not Valid User');
             }else{
                 if(foundUser){
                     if(foundUser.password==password){
@@ -370,6 +364,8 @@ app.post('/updatemovie', function(req, res){
 app.get('/seatBooked', function(req, res){
     res.render('seatBooked');
 });
+
+
 
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
