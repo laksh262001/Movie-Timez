@@ -3,20 +3,13 @@
   <body onload="onLoaderFunc()">
     <div class="inputForm">
     <center>
-      
       Name *: <input type="text" name="name" id="Username" required>
       Number of Seats *: <input name="numofseats" type="number" id="Numseats" required>
       <br/><br/>
       <button class="btn btn-danger" onclick="takeData()">Start Selecting</button>
-
     </center>
     </div>
       
-    <form action="/seatBooking" method="patch">
-      <input type="text" name="name">
-      <input type="number" name="seats" >
-      <button type="get">Submit</button>
-    </form>
     <div class="seatStructure">
     <center>
       
@@ -226,10 +219,11 @@
     </table>
       
        <br/><button onclick="updateTextArea()" class="btn btn-danger">Confirm Selection</button>
-    </form>
-    <!-- </center>
+    </center>
     </div>
-          
+    <form method="post" action="/seatBooking">   
+      <button type="submit">Submit</button>
+    </form>
     <br/><br/>
     
     <div class="displayerBoxes">
@@ -247,6 +241,6 @@
       </tr>
     </table>
     </center>
-    </div> -->
+    </div>
 
 <%- include("partials/footer"); -%>

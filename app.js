@@ -3,6 +3,10 @@ const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const _ = require("lodash");
 const mongoose = require("mongoose");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const passportLocalMongoose = require("passport-local-mongoose");
+const User = require("./models/user");
 var fs = require('fs');
 var path = require('path');
 require('dotenv/config');
@@ -52,6 +56,19 @@ const userSchema = new mongoose.Schema ({
 });
 
 const User = mongoose.model("User", userSchema);
+
+// code for aruthentication starts here
+app.use(require("express-session")({
+    secret: "Rusty is a dog",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+// code for authentication ends here
 
 app.get("/", function(req, res){
     imgModel.find({}, (err, items) => {
@@ -153,7 +170,6 @@ app.get('/seatBooking',function(req, res){
 
 });
 app.post('/seatBooking',function(req, res){
-
     res.render('signin');
 });
 
@@ -350,6 +366,9 @@ app.post('/updatemovie', function(req, res){
             res.render('theater');
         }
     });
+});
+app.get('/seatBooked', function(req, res){
+    res.render('seatBooked');
 });
 
 app.listen(process.env.PORT || 3000, function(){
