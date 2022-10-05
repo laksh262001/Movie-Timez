@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+<div class="container">
+	<h1>To Upload Image on mongoDB</h1>
+	<hr>
+	<div>
+		<form action="/updatemovie" method="POST" enctype="multipart/form-data" class="form">
+			<div class="mb-3">
+				<label for="name" class="form-label">Image Title</label>
+				<input type="text" id="name" placeholder="Name"
+					value="" name="name" required class="form-control">
+			</div>
+			<div class="mb-3">
+				<label for="desc" class="form-label">Image Description</label>
+				<textarea id="desc" name="desc" value="" rows="2"
+						placeholder="Description" required class="form-control">
+				</textarea>
+			</div>
+			<div>
+				<button type="submit" class="btn btn-danger">Submit</button>
+			</div>
+		</form>
+	</div>
+
+	<hr>
+
+	<h1>Uploaded Images</h1>
+	<div class="container" id="movies">
+		<% items.forEach(function(image) { %>
+		<div class="row">
+			<div class="col">
+				<img src="data:image/<%=image.img.contentType%>;base64,
+						<%=image.img.data.toString('base64')%>" style="width:200px;height:200px;">
+				<div>
+					<h5><%= image.name %></h5>
+					<p><%= image.desc %></p>
+				</div>
+			</div>
+		</div>
+		<% }) %>
+	</div>
+</div>
+<%- include('partials/footer') %>
