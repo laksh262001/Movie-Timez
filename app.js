@@ -16,7 +16,18 @@ const app = express();
 const http = require('http');
 const Razorpay = require('razorpay');
 const formidable = require('formidable');
+const session = require('express-session');
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: 'SECRET' 
+  }));
+  
 
+var userProfile;
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
@@ -32,6 +43,7 @@ const welcome = "Welcome to Movie Timez. Select your favourite movie and enjoy w
 // mongoose.connect("mongodb+srv://pushpak696:IxPw7a6XroFz1wv0@cluster0.4aydr2o.mongodb.net/movieDB");
 // image schema starts here
 // ref to image adding code https://www.geeksforgeeks.org/upload-and-retrieve-image-on-mongodb-using-mongoose/ 
+
 
 
 app.use(bodyParser.json());
@@ -365,11 +377,53 @@ app.get('/seatBooked', function(req, res){
     res.render('seatBooked');
 });
 
+app.get('/tsignin', function(req, res){
+    res.render('pages/auth');
+});
+
+app.get('/success', (req, res) => res.render('theater'));
+app.get('/error', (req, res) => res.send("error logging in"));
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user);
+});
+
+passport.deserializeUser(function(obj, cb) {
+  cb(null, obj);
+});
+
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GOOGLE_CLIENT_ID = '677730751472-b3h6nfbl3v7rh9g4lepc6oi8g34u638h.apps.googleusercontent.com';
+const GOOGLE_CLIENT_SECRET = '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';
+passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+      userProfile=profile;
+      return done(null, userProfile);
+  }
+));
+ 
+app.get('/auth/google', 
+  passport.authenticate('google', { scope : ['profile', 'email'] }));
+ 
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/error' }),
+  function(req, res) {
+    // Successful authentication, redirect success.
+    res.redirect('/success');
+  });
 
 
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
 });
+
+
+
+
 
 
 
