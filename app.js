@@ -40,7 +40,7 @@ const welcome = "Welcome to Movie Timez. Select your favourite movie and enjoy w
 
 
 // comment it down if you are using local database
-// mongoose.connect("mongodb+srv://pushpak696:IxPw7a6XroFz1wv0@cluster0.4aydr2o.mongodb.net/movieDB");
+// mongoose.connect("mongodb+srv://"+ process.env.MONGODB_USR +":"+ process.env.MONGODB_PWD +"@cluster0.4aydr2o.mongodb.net/movieDB");
 // image schema starts here
 // ref to image adding code https://www.geeksforgeeks.org/upload-and-retrieve-image-on-mongodb-using-mongoose/ 
 
@@ -239,8 +239,8 @@ app.get("/reviews", function(req, res){
 
 // Razorpay Integration statrs here
   const razorpayInstance = new Razorpay({
-    key_id: 'rzp_test_tGWpihUJ1HzHKv',
-    key_secret: 'uJXQpLCYz2Ip3DGiVIa7yP5E',
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
   });
 
 
@@ -393,8 +393,8 @@ passport.deserializeUser(function(obj, cb) {
 });
 
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const GOOGLE_CLIENT_ID = '677730751472-b3h6nfbl3v7rh9g4lepc6oi8g34u638h.apps.googleusercontent.com';
-const GOOGLE_CLIENT_SECRET = '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';
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
