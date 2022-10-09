@@ -163,15 +163,8 @@ app.post("/register", function(req, res){
     });
 });
 
-app.patch('/seatBooking', function(req, res){
-    console.log(req.body.name);
-    console.log(req.body.seats);
-    res.render('seatBooking');
-});
 
 app.get('/seatBooking',function(req, res){
-    console.log(req.body.name);
-    console.log(req.body.seats);
     res.render('seatBooking');
 
 });
@@ -324,7 +317,7 @@ app.get('/movie/:topic', function(req, res){
 
 
 app.get('/theater', function(req, res){
-    res.render('theater');
+    res.render('theater', {user:userProfile});
 });
 
 app.get('/deletemovie', function(req, res){
@@ -377,11 +370,12 @@ app.get('/seatBooked', function(req, res){
     res.render('seatBooked');
 });
 
-app.get('/tsignin', function(req, res){
+app.get('/pages/auth', function(req, res){
     res.render('pages/auth');
 });
 
-app.get('/success', (req, res) => res.render('theater'));
+app.get('/success', (req, res) => res.render('theater', {user:userProfile}));
+app.get('/pages/success', (req, res) => res.render('pages/success', {user:userProfile}));
 app.get('/error', (req, res) => res.send("error logging in"));
 
 passport.serializeUser(function(user, cb) {
@@ -416,7 +410,7 @@ app.get('/auth/google/callback',
     res.redirect('/success');
   });
 
-
+  
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
 });
