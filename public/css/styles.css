@@ -218,3 +218,7 @@ card-body .rotate {
   -ms-transform: rotate(-55deg);
   transform: rotate(-44deg);
 }
+
+.inputForm{
+  padding-top: 5%;
+}
