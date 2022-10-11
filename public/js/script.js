@@ -72,7 +72,7 @@ container.addEventListener('click', e => {
 updateSelectedCount();
 
 // search bar js
-function search_animal() {
+function search_bar() {
   let input = document.getElementById('searchbar').value
   input=input.toLowerCase();
   let x = document.getElementsByClassName('animals');

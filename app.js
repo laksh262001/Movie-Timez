@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const passportLocalMongoose = require("passport-local-mongoose");
-const { check, validationResult} = require("express-validator/check");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 var fs = require('fs');
@@ -22,7 +21,34 @@ app.use(session({
     saveUninitialized: true,
     secret: 'SECRET' 
   }));
+// modified code starts here
+// var path = require('path');
+// var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var routes = require('./routes/index');
+var users = require('./routes/users');
+app.use(cookieParser());
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use('/', routes);
+app.use('/users', users);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+app.use(express.static(path.join(__dirname, 'public')));
+var router = express.Router();
+
+/* GET home page. */
+router.get('/seat', function(req, res, next) {
+  res.render('seat', { title: 'Express' });
+});
+router.get('/seat', function(req, res, next) {
+    res.send('respond with a resource');
+  });
   
+module.exports = router;
+
+// modified code stoped here
 
 var userProfile;
 
@@ -41,6 +67,7 @@ const welcome = "Welcome to Movie Timez. Select your favourite movie and enjoy w
 
 // comment it down if you are using local database
 // mongoose.connect("mongodb+srv://"+ process.env.MONGODB_USR +":"+ process.env.MONGODB_PWD +"@cluster0.4aydr2o.mongodb.net/movieDB");
+
 // image schema starts here
 // ref to image adding code https://www.geeksforgeeks.org/upload-and-retrieve-image-on-mongodb-using-mongoose/ 
 
@@ -71,9 +98,8 @@ const userSchema = new mongoose.Schema ({
 
 const User = mongoose.model("User", userSchema);
 
-// code for aruthentication starts here
-
-// code for authentication ends here
+// code for seatBooking New starts here
+// code for seatBooking New ends here
 
 app.get("/", function(req, res){
     imgModel.find({}, (err, items) => {
@@ -415,7 +441,7 @@ app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
 });
 
-
+module.exports = app;
 
 
 
