@@ -189,15 +189,6 @@ app.post("/register", function(req, res){
     });
 });
 
-
-app.get('/seatBooking',function(req, res){
-    res.render('seatBooking');
-
-});
-app.post('/seatBooking',function(req, res){
-    res.render('signin');
-});
-
 const postSchema = {
     email: String,
     title: String,
@@ -392,9 +383,6 @@ app.post('/updatemovie', function(req, res){
         }
     });
 });
-app.get('/seatBooked', function(req, res){
-    res.render('seatBooked');
-});
 
 app.get('/pages/auth', function(req, res){
     res.render('pages/auth');
@@ -442,8 +430,3 @@ app.listen(process.env.PORT || 3000, function(){
 });
 
 module.exports = app;
-
-
-
-
-

@@ -173,3 +173,6 @@ input[type="checkbox"]{
 .reps{
 	margin-bottom: 29px;
 }
+a {
+  text-decoration: none;
+}
