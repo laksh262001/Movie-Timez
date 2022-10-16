@@ -382,8 +382,8 @@ passport.deserializeUser(function(obj, cb) {
 });
 
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const GOOGLE_CLIENT_ID = '965999753730-4fdciusud02bp5ka0s78ajehae15dfnb.apps.googleusercontent.com';
-const GOOGLE_CLIENT_SECRET = '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';
+const GOOGLE_CLIENT_ID = '965999753730-gl87to0vraa52l8fgre55pvni9l8ivqu.apps.googleusercontent.com';
+const GOOGLE_CLIENT_SECRET = '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';
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
