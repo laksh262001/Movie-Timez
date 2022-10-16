@@ -387,7 +387,8 @@ const GOOGLE_CLIENT_SECRET = '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';
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/callback"
+    // callbackURL: "http://localhost:3000/auth/google/callback"
+    callbackURL: "https://immense-refuge-87281.herokuapp.com/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
       userProfile=profile;
