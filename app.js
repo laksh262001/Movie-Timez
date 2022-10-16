@@ -382,12 +382,13 @@ passport.deserializeUser(function(obj, cb) {
 });
 
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const GOOGLE_CLIENT_ID = '959763275335-n0il3d5mn2lmc9714qo2gl14t6fc378b.apps.googleusercontent.com';
-const GOOGLE_CLIENT_SECRET = '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';
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 passport.use(new GoogleStrategy({
-    clientID: GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET,
-    // callbackURL: "http://localhost:3000/auth/google/callback"
+    clientID: '959763275335-n0il3d5mn2lmc9714qo2gl14t6fc378b.apps.googleusercontent.com',
+    clientSecret: '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',
+    // callbackURL: "http://localhost:3000/auth/google/callback",
+    access_type: 'online',
     callbackURL: "https://immense-refuge-87281.herokuapp.com/pages/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
