@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+<div  class="position-absolute top-50 start-50 translate-middle">
+<form class="form" method="post" action="/tlogin">
+    <div align="center">
+        <h1>Theatre Login</h1>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+    </div>
+    <div class="mb-3">
+        <label for="id" class="form-label">Unique Id</label>
+        <input type="id" name="id" class="form-control" id="id" placeholder="Unique-Id">
+    </div>
+    <button type="submit" class="btn btn-danger">Sign In</button>
+    <div class="container">
+        <p class="text-muted">Don't have an account?</p>
+        <button type="submit" class="btn btn-danger"><a href="/tregister">Register</a></button>
+    </div>
+    </div>
+</form>
+</div>
+<!-- autocomplete="off" -->
+<%- include("partials/footer"); -%>

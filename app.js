@@ -315,7 +315,7 @@ app.get('/movie/:topic', function(req, res){
 
 
 app.get('/theater', function(req, res){
-    res.render('theater', {user:userProfile});
+    res.render('theater');
 });
 
 app.get('/deletemovie', function(req, res){
@@ -407,7 +407,58 @@ app.get('/auth/google/callback',
     res.redirect('/success');
   });
 
-  
+
+const theatreloginSchema = new mongoose.Schema({
+    name: String,
+    mobilenum: Number,
+    email: String,
+    password: String,
+    id: Number
+});
+const Theaterlogin = mongoose.model("Theaterlogin", theatreloginSchema);
+
+app.get('/tlogin', function(req,res){
+    res.render('tlogin');
+});
+app.post('/tlogin', function(req,res){
+    const emailadd = req.body.email;
+    const password = req.body.password;
+    const id = req.body.id;
+    Theaterlogin.findOne({email: emailadd}, function(err, foundUser){
+            if(err){
+                console.log(err);
+                res.send('Not Valid User');
+            }else{
+                if(foundUser){
+                    if((foundUser.password==password) & (foundUser.id==id)){
+                        res.redirect("/theater");
+                    }
+                }
+            }
+        });
+})
+app.get('/tregister', function(req,res){
+    var uniqueid = Math.random().toString().substr(2, 6);
+    res.render('tregister',{uniqueid:uniqueid});
+});
+
+app.post('/tregister', function(req,res){
+    const newTheaterlogin = new Theaterlogin({
+        name: req.body.name,
+        mobile: req.body.mobilenum,
+        email: req.body.email,
+        password: req.body.password,
+        id: req.body.id
+    });
+    newTheaterlogin.save(function(err){
+        if(err){
+            console.log(err);
+        } else {
+            res.redirect('/tlogin');
+        }
+    });
+})
+
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
 });
