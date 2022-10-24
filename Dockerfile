@@ -1,8 +1,8 @@
 FROM node
 
-WORKDIR /app
+WORKDIR /usr/nodeapp
 
-COPY . /
+COPY ./ ./
 
 RUN npm install
 EXPOSE 3000
