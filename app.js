@@ -268,8 +268,8 @@ app.post('/createOrder', (req, res)=>{
 
 
 
-app.get('/createOrder', (req, res)=>{
-    req_title= req.params.title;
+app.get('/createOrder/:movie_name', (req, res)=>{
+    req_title= req.params.movie_name;
     imgModel.find({name:req_title}, (err, items) => {
         if (err) {
             console.log(err);
@@ -321,7 +321,6 @@ app.get('/movie/:topic', function(req, res){
 
         }
         else {
-            // res.render('movie', { items: item});
             res.render("movie", {items:item});
         }
     });

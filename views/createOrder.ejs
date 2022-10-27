@@ -4,11 +4,11 @@
     <% items.forEach(function(image) { %>
     <div class="mb-3">
         <label for="amount" class="form-label">Movie Name</label>
-        <input type="text" value=<%= image.name %> name="amount" class="form-control"></input>
+        <input type="text" value="<%= image.name %>" name="amount" class="form-control"></input>
     </div>
     <div class="mb-3">
         <label for="amount" class="form-label">Amount</label>
-        <input type="text" value=<%=image.price %> name="amount" class="form-control"></input>
+        <input type="text" value="<%=image.price %>" name="amount" class="form-control"></input>
     </div>
     <% }) %>
     <div class="mb-3">
@@ -22,8 +22,4 @@
     <button type="submit" class="btn btn-danger">Agree</button>
 </form>
 </div>
-<% items.forEach(function(image) { %>
-    <h1><%= image.name %></h1>
-    <h3><%=image.price %></h3>
-<% }) %>
 <%- include("partials/footer"); -%>

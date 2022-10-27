@@ -21,7 +21,7 @@
     <% items.forEach(function(image) { %>
         <h1><%= image.name %></h1>
         <h3><%=image.price %></h3>
-    <% }) %>
+
     <div id="main-wrapper" class="container" ng-controller="MainCtrl">
       <div class="row">
         <form class="col s12" ng-submit="submit()">
@@ -71,9 +71,9 @@
       </div>
 
       <div class="col s4">
-        <a href="/createOrder"><button class="waves-effect waves-light btn right" type="submit" ng-show="bookedBtn" ng-click="bookTickets()"><i class="material-icons right">send</i>Submit</button></a>
+        <a href="../createOrder/<%=image.name%>"><button class="waves-effect waves-light btn right" type="submit" ng-show="bookedBtn" ng-click="bookTickets()"><i class="material-icons right">send</i>Submit</button></a>
       </div>
-
+      <% }) %>
       <div class="row">
         <table class="responsive-table striped">
             <thead>
