@@ -5,10 +5,10 @@ const ejs = require('ejs');
 const _ = require("lodash");
 const mongoose = require("mongoose");
 const passport = require("passport");
-const LocalStrategy = require("passport-local");
-const passportLocalMongoose = require("passport-local-mongoose");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+// const LocalStrategy = require("passport-local");
+// const passportLocalMongoose = require("passport-local-mongoose");
+// const bcrypt = require("bcryptjs");
+// const jwt = require("jsonwebtoken");
 var fs = require('fs');
 var path = require('path');
 require('dotenv/config');
@@ -269,6 +269,7 @@ app.post('/createOrder', (req, res)=>{
 
 
 app.get('/createOrder', (req, res)=>{
+    req_title= req.params.title;
     imgModel.find({name:req_title}, (err, items) => {
         if (err) {
             console.log(err);
