@@ -1,10 +1,16 @@
 <%- include('partials/header') %>
 <div align="center" class="position-absolute top-50 start-50 translate-middle">
 <form action="/createOrder" method="post" class="form">
+    <% items.forEach(function(image) { %>
+    <div class="mb-3">
+        <label for="amount" class="form-label">Movie Name</label>
+        <input type="text" value=<%= image.name %> name="amount" class="form-control"></input>
+    </div>
     <div class="mb-3">
         <label for="amount" class="form-label">Amount</label>
-        <input type="text" value="499" name="amount" class="form-control"></input>
+        <input type="text" value=<%=image.price %> name="amount" class="form-control"></input>
     </div>
+    <% }) %>
     <div class="mb-3">
         <label for="amount" class="form-label">Currency</label>
         <input type="text" value="INR" name="currency" class="form-control"></input>
@@ -16,4 +22,8 @@
     <button type="submit" class="btn btn-danger">Agree</button>
 </form>
 </div>
+<% items.forEach(function(image) { %>
+    <h1><%= image.name %></h1>
+    <h3><%=image.price %></h3>
+<% }) %>
 <%- include("partials/footer"); -%>

@@ -132,6 +132,7 @@ app.post('/imagesPage', upload.single('image'), function(req, res, next){
     var obj = {
         name: req.body.name,
         desc: req.body.desc,
+        price: req.body.price,
         img: {
             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
             contentType: 'image/png'
@@ -268,7 +269,15 @@ app.post('/createOrder', (req, res)=>{
 
 
 app.get('/createOrder', (req, res)=>{
-    res.render('createOrder');
+    imgModel.find({name:req_title}, (err, items) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('createOrder', { items: items });
+        }
+    });
 });
 
 app.post("/api/payment/verify",(req,res)=>{
@@ -464,7 +473,20 @@ app.post('/tregister', function(req,res){
             res.redirect('/tlogin');
         }
     });
-})
+});
+
+app.get('/movieseat/:imagetitle', function(req,res){
+   const req_title = req.params.imagetitle;
+    imgModel.find({name:req_title}, (err, items) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('movieseat', { items: items });
+        }
+    });
+});
 
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has started and running at port 3000');
