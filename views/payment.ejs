@@ -15,9 +15,10 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
 	let data = '<%- ordid.orderid %>';
+	let amount = '<%= amount %>'
 var options = {
 	"key": "rzp_test_tGWpihUJ1HzHKv",
-	"amount": "49900",
+	"amount": amount+'00',
 	"currency": "INR",
 	"name": "Movie Timez",
 	"description": "Pay for Movie Timez",
