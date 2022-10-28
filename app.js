@@ -257,7 +257,7 @@ app.post('/createOrder', (req, res)=>{
 		if(!err){
 			// res.json(order.orderid);
             Orderid.find({}, function(err, result){
-            res.render('payment',{ordid:result});
+            res.render('payment',{ordid:result, amount:amount});
             });
         }
 		else
