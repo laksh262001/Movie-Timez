@@ -60,12 +60,12 @@ app.use(express.static('public'));
 
 
 
-// mongoose.connect("mongodb://localhost:27017/movieDB");
+mongoose.connect("mongodb://mongo:27017/movieDB");
 const welcome = "Welcome to Movie Timez. Select your favourite movie and enjoy watching!";
 
 
 // comment it down if you are using local database
-mongoose.connect("mongodb+srv://"+process.env.MONGODB_USR+":"+process.env.MONGODB_PWD+"@cluster0.4aydr2o.mongodb.net/movieDB");
+// mongoose.connect("mongodb+srv://"+process.env.MONGODB_USR+":"+process.env.MONGODB_PWD+"@cluster0.4aydr2o.mongodb.net/movieDB");
 
 // image schema starts here
 // ref to image adding code https://www.geeksforgeeks.org/upload-and-retrieve-image-on-mongodb-using-mongoose/ 
