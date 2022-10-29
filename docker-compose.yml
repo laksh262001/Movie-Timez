@@ -1,9 +1,31 @@
 version: '3'
 services:
-  mongo:
-    image: "mongo"
+  mongo_db:
+    container_name: movieDB
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_db:/data/db
   
   node: 
     build: .
     ports: 
       - "3000:3000"
+    volumes:
+      - .:/usr/nodeapp
+    environment:
+      GOOGLE_CLIENT_ID : 677730751472-b3h6nfbl3v7rh9g4lepc6oi8g34u638h.apps.googleusercontent.com
+      GOOGLE_CLIENT_SECRET : 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
+      MONGODB_USR : pushpak696
+      MONGODB_PWD : IxPw7a6XroFz1wv0
+      RAZORPAY_KEY_ID : rzp_test_tGWpihUJ1HzHKv
+      RAZORPAY_KEY_SECRET : uJXQpLCYz2Ip3DGiVIa7yP5E
+      GOOGLE_CLIENT_IDL : 959763275335-n0il3d5mn2lmc9714qo2gl14t6fc378b.apps.googleusercontent.com
+      GOOGLE_CLIENT_SECRETL : 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
+    depends_on:
+      - mongo_db
+  
+volumes:
+  mongo_db: {}
