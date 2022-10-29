@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 # docker files
-.docker-compose.yml
+docker-compose.yml
