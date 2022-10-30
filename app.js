@@ -22,6 +22,21 @@ app.use(session({
     saveUninitialized: true,
     secret: 'SECRET' 
   }));
+// Authentication started here
+const { auth, requiresAuth } = require('express-openid-connect');
+const config = {
+    authRequired: false,
+    auth0Logout: true,
+    secret: process.env.SECRET,
+    baseURL: process.env.BASE_URL,
+    clientID: process.env.CLIENT_ID,
+    issuerBaseURL: process.env.ISSUER_BASE_URL
+  };
+app.use(auth(config));
+
+// Authentication stopped here
+
+
 // modified code starts here
 
 var logger = require('morgan');
@@ -97,7 +112,7 @@ const userSchema = new mongoose.Schema ({
 
 const User = mongoose.model("User", userSchema);
 
-app.get("/", function(req, res){
+app.get("/", requiresAuth(), function(req, res){
     imgModel.find({}, (err, items) => {
         if (err) {
             console.log(err);
@@ -110,7 +125,7 @@ app.get("/", function(req, res){
   });
 
 app.get('/signin',function(req,res){
-    res.render('signin');
+    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 });
 
 app.get('/register',function(req,res){
