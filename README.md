@@ -2,7 +2,7 @@
 
 | Project Title | Online Movie Ticket Booking |
 | --- | --- |
-| Technologies | MongoDB, Express,  HTML, CSS, JS, and Node.js |
+| Technologies | MongoDB, Express,  HTML, CSS, JS, Docker and Node.js |
 | Domain | Industry |
 
 # **Problem Statement:**
