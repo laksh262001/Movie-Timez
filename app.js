@@ -128,6 +128,10 @@ app.get('/signin',function(req,res){
     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 });
 
+app.get('/profile', requiresAuth(), (req, res) => {
+    res.send(JSON.stringify(req.oidc.user , null, 2));
+  });
+
 app.get('/register',function(req,res){
     res.render('register');
 });
