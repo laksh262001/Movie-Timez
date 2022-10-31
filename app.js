@@ -112,7 +112,7 @@ const userSchema = new mongoose.Schema ({
 
 const User = mongoose.model("User", userSchema);
 
-app.get("/", requiresAuth(), function(req, res){
+app.get("/", function(req, res){
     imgModel.find({}, (err, items) => {
         if (err) {
             console.log(err);
@@ -490,7 +490,7 @@ app.post('/tregister', function(req,res){
     });
 });
 
-app.get('/movieseat/:imagetitle', function(req,res){
+app.get('/movieseat/:imagetitle', requiresAuth(), function(req,res){
    const req_title = req.params.imagetitle;
     imgModel.find({name:req_title}, (err, items) => {
         if (err) {
