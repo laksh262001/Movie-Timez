@@ -113,8 +113,6 @@ const userSchema = new mongoose.Schema ({
 const User = mongoose.model("User", userSchema);
 
 app.get("/", function(req, res){
-    const auth=req.oidc.isAuthenticated();
-    if auth=='Logged in'{
         data=req.oidc.user;
         imgModel.find({}, (err, items) => {
             if (err) {
@@ -125,11 +123,6 @@ app.get("/", function(req, res){
                 res.render('home', { items: items, lines: welcome,data:data});
             }
         });
-    }
-    else{
-        res.render("login");
-    }
-
   });
 
 app.get('/signin',function(req,res){
