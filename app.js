@@ -120,7 +120,7 @@ app.get("/", function(req, res){
                 res.status(500).send('An error occurred', err);
             }
             else {
-                res.render('home', { items: items, lines: welcome,data:data});
+                res.render('home', { items: items, lines: welcome,data: data});
             }
         });
   });
