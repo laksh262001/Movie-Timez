@@ -12,12 +12,14 @@
   </head>
 
   <body >
-    <nav class="navbar-fixed black">
-      <div class="nav-wrapper main-nav container">
-        <a class="brand-logo" href="/">Movie Timez</a>
-        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-      </div>
-    </nav>
+    <header>
+      <nav class="navbar-fixed black">
+        <div class="nav-wrapper main-nav container">
+          <a class="brand-logo" href="/">Movie Timez</a>
+          <a href="/logout"><button class="btn" style="float:right;">Logout</button></a>
+        </div>
+      </nav>
+    </header>
     <div id="main-wrapper" class="container" ng-controller="MainCtrl">
       <div class="row">
         <form class="col s12" ng-submit="submit()">

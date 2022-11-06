@@ -172,8 +172,10 @@ const postSchema = {
 };
 const Post = mongoose.model("Post", postSchema);
 
-app.get("/reviews", function(req, res){
-    res.render("reviews");
+app.get("/reviews",requiresAuth(), function(req, res){
+    const user = req.oidc.user.given_name;
+    const pic = req.oidc.user.picture;
+    res.render("reviews",{user:user,pic:pic});
   });
 
   app.get("/feedback", function(req, res){
@@ -182,7 +184,7 @@ app.get("/reviews", function(req, res){
     });
   });
   
-  app.post("/reviews", function(req, res){
+  app.post("/reviews",function(req, res){
     const post = new Post({
       email: req.body.postEmail,  
       title: req.body.postTitle,
@@ -222,7 +224,7 @@ const orderSchema = new mongoose.Schema({
 
 const Orderid = mongoose.model("Order", orderSchema);
 
-app.post('/createOrder',requiresAuth(), (req, res)=>{
+app.post('/createOrder', (req, res)=>{
 	const {amount,currency,receipt, notes} = req.body;	
 	razorpayInstance.orders.create({amount, currency, receipt, notes},
 		(err, order)=>{
