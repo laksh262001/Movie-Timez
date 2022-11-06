@@ -32,7 +32,20 @@ const config = {
     clientID: process.env.CLIENT_ID,
     issuerBaseURL: process.env.ISSUER_BASE_URL
   };
-app.use(auth(config));
+// app.use(auth(config));
+app.use(
+    auth({
+      idpLogout: true,
+      authRequired: false,
+      routes: {
+        // Pass custom options to the login method by overriding the default login route
+        login: false,
+        // Pass a custom path to the postLogoutRedirect to redirect users to a different
+        // path after login, this should be registered on your authorization server.
+        postLogoutRedirect: '/custom-logout',
+      },
+    })
+  );
 
 // Authentication stopped here
 
@@ -137,6 +150,7 @@ app.get('/profile', requiresAuth(), (req, res) => {
 app.get('/register',function(req,res){
     res.render('register');
 });
+
 
 app.get('/imagesPage', function(req, res){
     imgModel.find({}, (err, items) => {
