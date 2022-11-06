@@ -5,10 +5,6 @@ const ejs = require('ejs');
 const _ = require("lodash");
 const mongoose = require("mongoose");
 const passport = require("passport");
-// const LocalStrategy = require("passport-local");
-// const passportLocalMongoose = require("passport-local-mongoose");
-// const bcrypt = require("bcryptjs");
-// const jwt = require("jsonwebtoken");
 var fs = require('fs');
 var path = require('path');
 require('dotenv/config');
@@ -32,20 +28,7 @@ const config = {
     clientID: process.env.CLIENT_ID,
     issuerBaseURL: process.env.ISSUER_BASE_URL
   };
-// app.use(auth(config));
-app.use(
-    auth({
-      idpLogout: true,
-      authRequired: false,
-      routes: {
-        // Pass custom options to the login method by overriding the default login route
-        login: false,
-        // Pass a custom path to the postLogoutRedirect to redirect users to a different
-        // path after login, this should be registered on your authorization server.
-        postLogoutRedirect: '/custom-logout',
-      },
-    })
-  );
+app.use(auth(config));
 
 // Authentication stopped here
 
@@ -126,15 +109,13 @@ const userSchema = new mongoose.Schema ({
 const User = mongoose.model("User", userSchema);
 
 app.get("/", function(req, res){
-        data=req.oidc.isAuthenticated;
-        console.log(data);
         imgModel.find({}, (err, items) => {
             if (err) {
                 console.log(err);
                 res.status(500).send('An error occurred', err);
             }
             else {
-                res.render('home', { items: items, lines: welcome,data: data});
+                res.render('home', { items: items, lines: welcome});
             }
         });
   });
@@ -145,7 +126,7 @@ app.get('/signin',function(req,res){
 
 app.get('/profile', requiresAuth(), (req, res) => {
     res.send(JSON.stringify(req.oidc.user , null, 2));
-  });
+});
 
 app.get('/register',function(req,res){
     res.render('register');
@@ -180,46 +161,6 @@ app.post('/imagesPage', upload.single('image'), function(req, res, next){
         else {
             // item.save();
             res.redirect('/');
-        }
-    });
-});
-
-
-
-
-app.post("/signin", function(req, res){
-    const emailadd = req.body.email;
-    const password = req.body.password;
-    User.findOne({email: emailadd}, function(err, foundUser){
-            if(err){
-                console.log(err);
-            }else{
-                if(foundUser){
-                    if(foundUser.password==password){
-                        res.redirect("/createOrder");
-                    }
-                }
-                else{
-                    alert('Invalid user');
-                    res.redirect('/signin');
-                }
-            }
-        });
-    });
-
-app.post("/register", function(req, res){
-    const newUser = new User({
-        name: req.body.name,
-        mobile: req.body.mobilenum,
-        email: req.body.email,
-        password: req.body.password
-
-    });
-    newUser.save(function(err){
-        if(err){
-            console.log(err);
-        } else {
-            res.redirect('/signin');
         }
     });
 });
@@ -281,7 +222,7 @@ const orderSchema = new mongoose.Schema({
 
 const Orderid = mongoose.model("Order", orderSchema);
 
-app.post('/createOrder', (req, res)=>{
+app.post('/createOrder',requiresAuth(), (req, res)=>{
 	const {amount,currency,receipt, notes} = req.body;	
 	razorpayInstance.orders.create({amount, currency, receipt, notes},
 		(err, order)=>{
@@ -303,7 +244,7 @@ app.post('/createOrder', (req, res)=>{
 
 
 
-app.get('/createOrder/:movie_name', (req, res)=>{
+app.get('/createOrder/:movie_name',requiresAuth(), (req, res)=>{
     req_title= req.params.movie_name;
     imgModel.find({name:req_title}, (err, items) => {
         if (err) {
@@ -333,7 +274,7 @@ app.post("/api/payment/verify",(req,res)=>{
      });
 
 
-app.get('/payment', function(req, res){
+app.get('/payment',requiresAuth(), function(req, res){
     Orderid.find({}, function(err, result){
         if(err)
         {
@@ -345,9 +286,7 @@ app.get('/payment', function(req, res){
 
 });
 
-
-
-app.get('/movie/:topic', function(req, res){
+app.get('/movie/:topic',requiresAuth(), function(req, res){
     const requestedTitle = req.params.topic;
     imgModel.find({name:requestedTitle}, (err, item) => {
         if (err) {
@@ -416,45 +355,6 @@ app.post('/updatemovie', function(req, res){
 app.get('/pages/auth', function(req, res){
     res.render('pages/auth');
 });
-
-app.get('/success', (req, res) => res.render('theater', {user:userProfile}));
-app.get('/pages/success', (req, res) => res.render('pages/success', {user:userProfile}));
-app.get('/error', (req, res) => res.send("error logging in"));
-
-passport.serializeUser(function(user, cb) {
-  cb(null, user);
-});
-
-passport.deserializeUser(function(obj, cb) {
-  cb(null, obj);
-});
-
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-passport.use(new GoogleStrategy({
-    clientID: '959763275335-n0il3d5mn2lmc9714qo2gl14t6fc378b.apps.googleusercontent.com',
-    clientSecret: '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',
-    callbackURL: "http://localhost:3000/auth/google/callback",
-    // access_type: 'online',
-    // callbackURL: "https://immense-refuge-87281.herokuapp.com/pages/auth/google/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-      userProfile=profile;
-      return done(null, userProfile);
-  }
-));
- 
-app.get('/auth/google', 
-  passport.authenticate('google', { scope : ['profile', 'email'] }));
- 
-app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/error' }),
-  function(req, res) {
-    // Successful authentication, redirect success.
-    res.redirect('/success');
-  });
-
 
 const theatreloginSchema = new mongoose.Schema({
     name: String,
