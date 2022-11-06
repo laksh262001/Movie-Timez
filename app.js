@@ -113,14 +113,15 @@ const userSchema = new mongoose.Schema ({
 const User = mongoose.model("User", userSchema);
 
 app.get("/", function(req, res){
-        data=req.oidc.user;
+        data=req.oidc.isAuthenticated;
+        console.log(data);
         imgModel.find({}, (err, items) => {
             if (err) {
                 console.log(err);
                 res.status(500).send('An error occurred', err);
             }
             else {
-                res.render('home', { items: items, lines: welcome,data:data});
+                res.render('home', { items: items, lines: welcome,data: data});
             }
         });
   });
