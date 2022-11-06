@@ -113,7 +113,8 @@ const userSchema = new mongoose.Schema ({
 const User = mongoose.model("User", userSchema);
 
 app.get("/", function(req, res){
-        data=req.oidc.user;
+        data=req.oidc.isAuthenticated;
+        console.log(data);
         imgModel.find({}, (err, items) => {
             if (err) {
                 console.log(err);
