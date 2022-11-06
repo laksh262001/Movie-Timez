@@ -173,14 +173,16 @@ const postSchema = {
 const Post = mongoose.model("Post", postSchema);
 
 app.get("/reviews",requiresAuth(), function(req, res){
-    const user = req.oidc.user.given_name;
+    const user = req.oidc.user.nickname;
     const pic = req.oidc.user.picture;
     res.render("reviews",{user:user,pic:pic});
   });
 
   app.get("/feedback", function(req, res){
+    const user = req.oidc.user.nickname;
+    const pic = req.oidc.user.picture;
     Post.find({}, function(err, posts){
-        res.render("feedback",{posts: posts});
+        res.render("feedback",{posts: posts,user:user,pic:pic});
     });
   });
   
@@ -224,7 +226,9 @@ const orderSchema = new mongoose.Schema({
 
 const Orderid = mongoose.model("Order", orderSchema);
 
-app.post('/createOrder', (req, res)=>{
+app.post('/createOrder',requiresAuth(), (req, res)=>{
+    const user=req.oidc.user.nickname;
+    const pic=req.oidc.user.picture;
 	const {amount,currency,receipt, notes} = req.body;	
 	razorpayInstance.orders.create({amount, currency, receipt, notes},
 		(err, order)=>{
@@ -235,7 +239,7 @@ app.post('/createOrder', (req, res)=>{
 		if(!err){
 			// res.json(order.orderid);
             Orderid.find({}, function(err, result){
-            res.render('payment',{ordid:result, amount:amount});
+            res.render('payment',{ordid:result, amount:amount,user:user,pic:pic});
             });
         }
 		else
@@ -247,14 +251,16 @@ app.post('/createOrder', (req, res)=>{
 
 
 app.get('/createOrder/:movie_name',requiresAuth(), (req, res)=>{
-    req_title= req.params.movie_name;
+    const user = req.oidc.user.nickname;
+    const pic = req.oidc.user.picture;
+    const req_title= req.params.movie_name;
     imgModel.find({name:req_title}, (err, items) => {
         if (err) {
             console.log(err);
             res.status(500).send('An error occurred', err);
         }
         else {
-            res.render('createOrder', { items: items });
+            res.render('createOrder', { items: items,user:user,pic:pic });
         }
     });
 });
@@ -277,18 +283,22 @@ app.post("/api/payment/verify",(req,res)=>{
 
 
 app.get('/payment',requiresAuth(), function(req, res){
+    const user = req.oidc.user.nickname;
+    const pic = req.oidc.user.picture;
     Orderid.find({}, function(err, result){
         if(err)
         {
             console.log(err);
         } else {
-            res.render("payment", {ordid:result});
+            res.render("payment", {ordid:result,user:user,pic:pic});
         }
     });
 
 });
 
 app.get('/movie/:topic',requiresAuth(), function(req, res){
+    const user = req.oidc.user.nickname;
+    const pic = req.oidc.user.picture;
     const requestedTitle = req.params.topic;
     imgModel.find({name:requestedTitle}, (err, item) => {
         if (err) {
@@ -297,7 +307,7 @@ app.get('/movie/:topic',requiresAuth(), function(req, res){
 
         }
         else {
-            res.render("movie", {items:item});
+            res.render("movie", {items:item,user:user,pic:pic});
         }
     });
 });
@@ -413,6 +423,8 @@ app.post('/tregister', function(req,res){
 });
 
 app.get('/movieseat/:imagetitle', requiresAuth(), function(req,res){
+    const user = req.oidc.user.nickname;
+    const pic = req.oidc.user.picture;
    const req_title = req.params.imagetitle;
     imgModel.find({name:req_title}, (err, items) => {
         if (err) {
@@ -420,7 +432,7 @@ app.get('/movieseat/:imagetitle', requiresAuth(), function(req,res){
             res.status(500).send('An error occurred', err);
         }
         else {
-            res.render('movieseat', { items: items });
+            res.render('movieseat', { items: items,user:user,pic:pic });
         }
     });
 });
