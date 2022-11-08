@@ -23,7 +23,7 @@ body{
     border-radius: 0;
     margin-bottom: 0;
     font-size: 12px;
-    letter-spacing: 5px;
+    letter-spacing: 1px;
     color: #E0DECA ;
 }
 
@@ -31,21 +31,39 @@ body{
     color: #E0DECA !important;
 }
 
-.footer {
-    background-color: #000000;
-    color: #E0DECA;
-    padding-top: 10px; 
-    padding-bottom: 10px;
-    padding-left: 10px; 
-    padding-right: 10px;
-    margin-top: 10px;
-    margin-bottom: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
+footer{
+  height: 22vh;
+  background: var(--bg-secondary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+footer ul{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+footer ul li{
+  list-style: none;
+  padding: 0 1rem;
+}
+footer ul li a,
+footer ul li a:hover{
+  color: var(--primary-color);
+  font-size: 23px;
 
+}
+footer div h5{
+  font-weight: normal;
+}
+footer div h5 i,
+footer div h5 span{
+  color: var(--main-color);
+}
+footer div h5 span{
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .img-fluid{

@@ -22,13 +22,19 @@
         <img src="<%= pic %>">
         <a href="/logout"><button class="btn btn-danger">Logout</button></a> -->
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-            <%= user %>
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"  aria-expanded="false">
+            <img class="img1" src="<%= pic %>" style="width: 30px; padding: 3px"><%= user %>
           </button>
-          <ul class="dropdown-menu">
-            <li class="dropdown-items"><img src="<%= pic %>"></li>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li class="dropdown-item"><a href="/reviews">Feedback</a></li>
+            <li class="dropdown-item"><a href="/feedback">Bookings</a></li>
             <hr>
-            <li class="dropdown-items"><a href="/logout">Logout</a></li>
+            <li class="dropdown-item"><a href="/logout">Logout</a></li>
+            <style>
+              .img1 {
+                border-radius: 50%;
+              }
+              </style>
           </ul>
         </div>
       </div><!-- /.navbar-collapse -->
